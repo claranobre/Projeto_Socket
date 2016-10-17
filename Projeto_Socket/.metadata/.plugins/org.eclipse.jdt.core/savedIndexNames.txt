@@ -1,3 +1,0 @@
-INDEX VERSION 1.129+/home/clara/Documents/UFRN/Redes de Computadores/Projeto_Socket/.metadata/.plugins/org.eclipse.jdt.core
-3699428115.index
-3820606036.index
