@@ -8,6 +8,7 @@ public class Recebedor implements Runnable {
 		this.servidor = servidor;
 	}
 	
+	@SuppressWarnings("resource")
 	public void run(){
 		/*
 		 * Recebe mensagens do servidor e imprime na tela

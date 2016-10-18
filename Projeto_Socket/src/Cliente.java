@@ -6,22 +6,22 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Cliente {
-	public static void main(String[] args) throws UnknownHostException, IOException{
-		private String host;
-		private int porta;
-		
+	
+	private String host;
+	private int porta;
+	
 	public Cliente(String host, int porta){
 		this.host = host;
 		this.porta = porta;
 	}	
-	
+		
 	public void executa() throws UnknownException, IOException{
 		
 		/**
 		* Criando o Socket
 		*/
 		
-		Socket cliente = new Socket(host,porta);
+		Socket cliente = new Socket(this.host,this.porta);
 		
 		/**
 		* Verifica conexão
@@ -56,5 +56,4 @@ public class Cliente {
 		saida.close();
 		teclado.close();
 		cliente.close();
-	}
 }
