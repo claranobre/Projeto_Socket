@@ -45,7 +45,7 @@ public class Servidor{
 			/**
 			 * Cria tratador de cliente numa nova thread 
 			 */
-			TrataCliente tc = new TrataCliente(cliente.getInputStream(), this);
+			TratadorDeMensagemDoCliente tc = new TratadorDeMensagemDoCliente(cliente.getInputStream(), this);
 			new Thread(tc).start();
 		}
 	}
@@ -55,7 +55,7 @@ public class Servidor{
 		 * Envia mensagem para todos (global)
 		 */
 		for(PrintStream cliente : this.clientes){
-			clientes.println(mensagem);
+			((PrintStream) clientes).println(mensagem);
 		}
 	}
 }	
@@ -76,4 +76,3 @@ public class Servidor{
 		cliente.close();
 		servidor.close();
 	}*/
-}

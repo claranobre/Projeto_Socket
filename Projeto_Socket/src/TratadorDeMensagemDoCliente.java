@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ class TratadorDeMensagemDoCliente implements Runnable {
 	}
 
 	public void run() {
-		try(Scanner s = new Scanner(this.cliente.getInputStream())) {
+		try(Scanner s = new Scanner(((Socket) this.cliente).getInputStream())) {
 			while (s.hasNextLine()) {
 				servidor.distribuirMensagem(s.nextLine());
 			}
