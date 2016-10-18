@@ -1,4 +1,5 @@
-try{
+public class Interfaces{
+	try{
 	Enumeration<NetworkInterface> interfaceList
 		= NetworkInterface.getNetworkInterfaces();
 	if(interfaceList == null){
@@ -24,7 +25,8 @@ try{
 	}
 		}
 	}
-}catch(SocketException se){
+	}catch(SocketException se){
 	System.out.println("Erro ao buscar interfaces "
 			+se.getMessage());
+	}
 }
