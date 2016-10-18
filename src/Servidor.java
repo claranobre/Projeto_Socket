@@ -17,7 +17,7 @@ public class Servidor {
 
 	public void executa() throws IOException  {
 		try(ServerSocket servidor = new ServerSocket(this.porta)){
-			System.out.println("Porta 12345 aberta!");
+			System.out.println("Porta" + porta "aberta!");
 	
 			while (true) {
 				Socket cliente = servidor.accept();
