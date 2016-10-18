@@ -7,41 +7,55 @@ import java.util.List;
 
 public class Servidor {
 
+	public static void main(String[] args) throws IOException{
+
+		new Servidor(80).executa();
+	}
+
 	private int porta;
-	private List<Socket> clientes;
+	private List<PrintStream> clientes;
 
 	public Servidor(int porta) {
 		this.porta = porta;
-		this.clientes = new ArrayList<>();
+		this.clientes = new ArrayList<PrintStream>();
 	}
 
 	public void executa() throws IOException  {
-		try(ServerSocket servidor = new ServerSocket(this.porta)){
-			System.out.println("Porta " + porta + " aberta!");
+		ServerSocket servidor = new ServerSocket(this.porta);
+		System.out.println("Porta " + porta + " aberta!");
 	
-			while (true) {
-				Socket cliente = servidor.accept();
-				System.out.println("Nova conexão com o cliente " + 
-						cliente.getInetAddress().getHostAddress());
-	
-				this.clientes.add(cliente);
-	
-				TratadorDeMensagemDoCliente tc = new TratadorDeMensagemDoCliente(cliente, this);
-				new Thread(tc).start();
-			}
-		}
-	}
+		while (true){
 
-	public void distribuirMensagem(Socket clienteQueEnviou, String msg) {
-		for (Socket cliente : this.clientes) {
-			if(!cliente.equals(clienteQueEnviou)){
-				try {
-					PrintStream ps = new PrintStream(cliente.getOutputStream());
-					ps.println(msg);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+			/**
+			* Aceita o Cliente
+			*/
+				
+			Socket cliente = servidor.accept();
+			System.out.println("Nova conexão com o cliente " + 
+			cliente.getInetAddress().getHostAddress());
+
+			/**
+			* Adiciona saída do cliente à lista
+			*/
+			
+			PrintStream ps = new PrintStream(cliente.getOutputStream());
+			this.clientes.add(ps);
+
+			/**
+			* Cria tratador de cliente em uma nova Thread
+			*/
+
+			TratadorDeMensagemDoCliente tc = new TratadorDeMensagemDoCliente(cliente.getInputStream(), this);
+			new Thread(tc).start();
+		}
+	}	
+
+	public void distribuirMensagem(String msg){
+		/**
+		* Envia mensagem para todo mundo
+		*/
+		for (PrintStream cliente : this.clientes){
+			cliente.println(msg);
 		}
 	}
 }

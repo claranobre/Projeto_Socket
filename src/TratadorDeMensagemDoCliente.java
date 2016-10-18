@@ -5,21 +5,24 @@ import java.util.Scanner;
 
 class TratadorDeMensagemDoCliente implements Runnable {
 
-	private Socket cliente;
+	private InputStream cliente;
 	private Servidor servidor;
 
-	public TratadorDeMensagemDoCliente(Socket cliente, Servidor servidor) {
+	public TratadorDeMensagemDoCliente(InputStream cliente, Servidor servidor) {
 		this.cliente = cliente;
 		this.servidor = servidor;
 	}
 
 	public void run() {
-		try(Scanner s = new Scanner(((Socket) this.cliente).getInputStream())) {
-			while (s.hasNextLine()) {
-				servidor.distribuirMensagem(cliente, s.nextLine());
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		
+		/*
+		* Quando chegar uma mensagem, distribui para todos
+		*/
+		
+		Scanner s = new Scanner(this.cliente);
+		while (s.hasNextLine()) {
+			servidor.distribuirMensagem(s.nextLine());
 		}
+		s.close();
 	}
 }
