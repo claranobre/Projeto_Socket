@@ -16,7 +16,7 @@ class TratadorDeMensagemDoCliente implements Runnable {
 	public void run() {
 		try(Scanner s = new Scanner(((Socket) this.cliente).getInputStream())) {
 			while (s.hasNextLine()) {
-				servidor.distribuirMensagem(s.nextLine());
+				servidor.distribuirMensagem(cliente, s.nextLine());
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
