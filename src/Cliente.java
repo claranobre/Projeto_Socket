@@ -20,7 +20,7 @@ public class Cliente {
 		* Dispara o Cliente
 		*/
 		
-		new Cliente("127.0.0.1" , 80).executa();
+		new Cliente("127.0.0.1" , 5000).executa();
 	}
 
 	public void executa() throws UnknownHostException, IOException {

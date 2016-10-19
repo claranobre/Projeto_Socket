@@ -9,7 +9,7 @@ public class Servidor {
 
 	public static void main(String[] args) throws IOException{
 
-		new Servidor(80).executa();
+		new Servidor(5000).executa();
 	}
 
 	private int porta;
